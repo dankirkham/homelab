@@ -1,0 +1,35 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: nfs-client-provisioner
+  name: nfs-client-provisioner
+spec:
+  template:
+    spec:
+      containers:
+        - name: nfs-client-provisioner
+          env:
+            - name: NFS_SERVER
+              valueFrom:
+                secretKeyRef:
+                  name: nfs-secret
+                  key: server
+            - name: NFS_PATH
+              valueFrom:
+                secretKeyRef:
+                  name: nfs-secret
+                  key: path
+      volumes:
+        - name: nfs-client-root
+          nfs:
+            server:
+              valueFrom:
+                secretKeyRef:
+                  name: nfs-secret
+                  key: server
+            path:
+              valueFrom:
+                secretKeyRef:
+                  name: nfs-secret
+                  key: path

@@ -11,11 +11,12 @@ spec:
         - name: nfs-client-provisioner
           env:
             - name: NFS_SERVER
-              value: 192.168.0.167
+              valueFrom:
+                secretKeyRef:
+                  name: nfs-secret
+                  key: server
             - name: NFS_PATH
-              value: /
-      volumes:
-        - name: nfs-client-root
-          nfs:
-            server: 192.168.0.167
-            path: /
+              valueFrom:
+                secretKeyRef:
+                  name: nfs-secret
+                  key: path

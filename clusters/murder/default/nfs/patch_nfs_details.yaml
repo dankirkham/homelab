@@ -23,13 +23,5 @@ spec:
       volumes:
         - name: nfs-client-root
           nfs:
-            server:
-              valueFrom:
-                secretKeyRef:
-                  name: nfs-secret
-                  key: server
-            path:
-              valueFrom:
-                secretKeyRef:
-                  name: nfs-secret
-                  key: path
+            server: "${NFS_SERVER}"
+            path: "${NFS_PATH}"

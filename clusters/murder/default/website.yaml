@@ -44,7 +44,7 @@ metadata:
   namespace: default
 spec:
   rules:
-  - host: ae4ta.com
+  - host: *
     http:
       paths:
       - backend:

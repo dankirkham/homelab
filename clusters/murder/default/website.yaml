@@ -18,6 +18,8 @@ spec:
       containers:
       - name: website
         image: ghcr.io/dankirkham/website:release
+        imagePullSecrets:
+        - name: ghcr-login-secret
         ports:
         - containerPort: 80
           name: website-web-svc

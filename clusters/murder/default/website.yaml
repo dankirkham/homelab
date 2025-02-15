@@ -20,6 +20,7 @@ spec:
         image: ghcr.io/dankirkham/website:release
         ports:
         - containerPort: 80
+          name: website-web-svc
 ---
 apiVersion: v1
 kind: Service
@@ -30,7 +31,8 @@ spec:
   selector:
     app.kubernetes.io/name: Website
   ports:
-    - protocol: TCP
+    - name: website-port
+      protocol: TCP
       port: 80
-      targetPort: 9376
+      targetPort: website-web-svc
 

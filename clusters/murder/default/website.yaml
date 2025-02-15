@@ -18,9 +18,9 @@ spec:
       containers:
       - name: website
         image: ghcr.io/dankirkham/website:release
+        imagePullPolicy: Always
         ports:
         - containerPort: 80
-          name: website-web-svc
       imagePullSecrets:
       - name: ghcr-login-secret
 ---
@@ -37,16 +37,19 @@ spec:
       port: 80
       targetPort: 80
 ---
-apiVersion: networking.k8s.io/v1beta1
+apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: website-ingress
   namespace: default
 spec:
   rules:
-  - host: *
-    http:
+  - http:
       paths:
-      - backend:
-          serviceName: website-internal-service
-          servicePort: 80
+      - path: /
+        pathType: Prefix
+        backend:
+          service:
+            name: website-internal-service
+            port:
+              number: 80
